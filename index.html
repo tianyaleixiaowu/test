@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .containers{
+            width: 800px;
+            height: 800px;
+            background-color: #eeeeee;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .containers button{
+            width: 100px;
+            height: 40px;
+            background-color: #02598d;
+            border: 0;
+            outline: none;
+            color: #ffffff;
+            text-align: center;
+            line-height: 40px;
+        }
+        .containers .login-info{
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            border-top: 1px solid #ffffff;
+            margin-top: 20px;
+
+        }
+    </style>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/json2.min.js"></script>
+    <script>
+        $(function(){
+            $("#login-btn").click(function(){
+//                var Url = "http://47.92.107.76/server";
+                var Url = "http://ec-server:8080";
+                $.ajax({
+                    type: 'POST',
+                    url: Url+'/login',
+                    headers:{"Content-Type":'application/x-www-form-urlencoded'},
+                    data:{
+                        'account': 'md_18813028838',
+                        'password': '5799794'
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        $(".login-info").html(JSON.stringify(data));
+                        console.log(data);
+                    },
+                    error: function(xhr){
+                        $(".login-info").html(JSON.stringify(xhr));
+                        console.log(xhr);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="containers">
+        <button type="button" id="login-btn">login</button>
+        <div class="login-info"></div>
+    </div>
+</body>
+</html>
